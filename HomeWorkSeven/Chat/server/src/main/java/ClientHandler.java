@@ -21,18 +21,20 @@ public class ClientHandler {
                 server.subscribe(this);
                 boolean goOn = true;
                 String msg = null;
-                while (goOn) {
-                    try {
+                try {
+                    while (goOn) {
                         msg = in.readUTF();
                         if (msg.startsWith("/")) {
                             if (msg.equalsIgnoreCase("/end")) {
                                 goOn = false;
                                 disconnect();
                             }
-                        } else server.broadCastMessageToChat(this, msg);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        }
+                        else server.broadCastMessageToChat(this, msg);
                     }
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
                 }
             }).start();
 
